@@ -1,0 +1,17 @@
+amount of cards in each category:
+leader hero:6
+monsters:14 (instead of 15 bc I want to exclude reverse req for slaying)
+hero:48
+-bard:8
+-fighter:8
+-guardian:8
+-ranger:8
+-thief:8
+-wizard:8
+items:
+-total duplicates
+modifiers:
+-total duplicates:
+spells:
+-total duplicates:
+challenges
