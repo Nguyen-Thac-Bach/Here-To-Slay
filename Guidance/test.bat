@@ -1,1 +1,0 @@
-start "" "D:\ELTE IK\7_felev_local\Szakdolgozat\Here-To-Slay"
