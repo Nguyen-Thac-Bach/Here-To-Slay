@@ -1,10 +1,11 @@
 using Unity.Entities;
+using Unity.Collections;
 
-public class BaseCard : IComponentData
+public struct BaseCard : IComponentData
 {
     public int CardId;
-    public string Name;
+    public FixedString32Bytes Name;
     //TODO: add image field
-    public string Description;
+    public FixedString128Bytes Description;
     public bool IsViewable;
 }

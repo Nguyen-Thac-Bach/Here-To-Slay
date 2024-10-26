@@ -5,6 +5,7 @@ namespace Components
 {
     public struct HeroCard : IComponentData
     {
+        public Entity HeroCardPrefab;
         public int MinRoll;
         //todo: add ability effect - type is not clear for now
         public HeroClass HeroClass;
