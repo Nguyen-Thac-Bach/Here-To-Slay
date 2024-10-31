@@ -10,6 +10,10 @@ namespace Bakers
         {
             // TODO: Implement the Bake method, continue from here
             var entity = GetEntity(TransformUsageFlags.None);
+            AddComponent(entity, authoring.BaseCard);
+            AddComponent(entity, authoring.HeroCard);
+            //AddComponent(entity, authoring.HeroCardPrefab);
+
         }
     }
 }

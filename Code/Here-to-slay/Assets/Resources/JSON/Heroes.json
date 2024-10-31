@@ -1,269 +1,11 @@
 {
-    "deck":[
-        {
-            "id": 1,
-            "type": "leader hero",
-            "name": "Elbűvölő Dalnok",
-            "img": "",
-            "class": "bard",
-            "description": "Minden alkalommal, amikor egy hőskárya képessége miatt dobsz a dobókockákkal, adj +1-et az összértékhez!"
-        },
-        {
-            "id": 2,
-            "type": "leader hero",
-            "name": "Igazság Ökle",
-            "img": "",
-            "class": "fighter",
-            "description": "Minden alkalommal, amikor PRÓBATÉTEL miatt dobsz a dobókockákkal, adj +2-t az összértékhez!"
-        },
-        {
-            "id": 3,
-            "type": "leader hero",
-            "name": "Isteni Nyíl",
-            "img": "",
-            "class": "ranger",
-            "description": "Minden alkalommal, amikor azért dobsz a dobókockákkal, mert szörnykártyát TÁMADSZ MEG, adj +1-et az összértékhez!"
-        },
-        {
-            "id": 4,
-            "type": "leader hero",
-            "name": "Védelmező Szarv",
-            "img": "",
-            "class": "guardian",
-            "description": "Minden alkalommal, amikor egy kockadobás sorány módosítókártyát játszol ki, adj +1-et vagy -1-et az összértékhez!"
-        },
-        {
-            "id": 5,
-            "type": "leader hero",
-            "name": "Árnyék Karom",
-            "img": "",
-            "class": "thief",
-            "description": "A körödben körönként egyszer elkölthetsz egy akciópontot, hogy húzz egy kátryát egy másik játékos kézben tartott kártyái közül."
-        },
-        {
-            "id": 6,
-            "type": "leader hero",
-            "name": "Körpenyes Bölcs",
-            "img": "",
-            "class": "wizard",
-            "description": "Minden alkalommal, amikor varázskártyát játszol ki, HÚZZ egy kártyát a főpakliból!"
-        },
-        {
-            "id": 7,
-            "type": "monster",
-            "name": "Harcedzett Bagolymedve",
-            "img": "",
-            "requirement":{
-                "class": "thief",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 4,
-            "penalty": "DOBJ EL 2 kártyát!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Amikor eszközkártyát játszol ki, nem tehetik próbára azt."
-        },
-        {
-            "id": 8,
-            "type": "monster",
-            "name": "Óriás Rex",
-            "img": "",
-            "requirement":{
-                "class": "guardian",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 4,
-            "penalty": "DOBJ EL 2 kártyát!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor módosítókártyát HÚZOL a főpakliból, megutathatod azt, és HÚZZ egy második kártyát is."
-        },
-        {
-            "id": 9,
-            "type": "monster",
-            "name": "Orthosz",
-            "img": "",
-            "requirement":{
-                "class": "wizard",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 4,
-            "penalty": "DOBJ EL 2 kártyát!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor varázslatkártyát HÚZOL a főpakliból, azonnal kijátszhatod azt."
-        },
-        {
-            "id": 10,
-            "type": "monster",
-            "name": "Malamamut",
-            "img": "",
-            "requirement":{
-                "class": "ranger",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 4,
-            "penalty": "DOBJ EL 2 kártyát!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor eszközkártyát HÚZOL a főpakliból, azonnal kijátszhatod azt."
-        },
-        {
-            "id": 11,
-            "type": "monster",
-            "name": "Sötét Sárkánykirály",
-            "img": "",
-            "requirement":{
-                "class": "bard",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 4,
-            "penalty": "DOBJ EL 2 kártyát!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor hőskártya képessége miatt dobsz a dobókockákkal, adj +1-et az összértékhez!"
-        },
-        {
-            "id": 12,
-            "type": "monster",
-            "name": "Titán Wyvern",
-            "img": "",
-            "requirement":{
-                "class": "fighter",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 4,
-            "penalty": "DOBJ EL 2 kártyát!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor próbatételkártya miatt dobsz a dobókockákkal, adj +1-et az összértékhez!"
-        },
-        {
-            "id": 13,
-            "type": "monster",
-            "name": "Sarki Aries",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 6,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward":10,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor egy hőskártya képességének használata miatt sikeresen dobsz a dobókockákkal, HÚZHATSZ egy kártyát a főpakliból."
-        },
-        {
-            "id": 14,
-            "type": "monster",
-            "name": "TerrorTeki",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 1
-            },
-            "maxForPenalty": 7,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward":11,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "A hőskártyáidat nem lehet megsemmisíteni."
-        },
-        {
-            "id": 15,
-            "type": "monster",
-            "name": "Tollas Kígyó",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 2
-            },
-            "maxForPenalty": 7,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward":10,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor egy játékos (téged is beleértve) módosítókártyát játszik ki, HÚZHATSZ egy kártyát a főpakliból."
-        },
-        {
-            "id": 16,
-            "type": "monster",
-            "name": "Vérszárny",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 2
-            },
-            "maxForPenalty": 6,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward":9,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor egy másik játékos PRÓBÁRA TESZ, annak a játékosnak EL KELL DOBNIA egy kártyát!"
-        },
-        {
-            "id": 17,
-            "type": "monster",
-            "name": "Abyss Királynője",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 2
-            },
-            "maxForPenalty": 5,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward": 8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor a te kockadobásod során egy másik játékos módosítókártyát játszik ki, adj +1-et az összértékhez!"
-        },
-        {
-            "id": 18,
-            "type": "monster",
-            "name": "Elátkozott Kardfogú",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 3
-            },
-            "maxForPenalty": 6,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward": 9,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát és HÚZZ egy kártyát a főpakliból!",
-            "description": "Minden alkalommal, amikor MEGSEMMISÍTENÉL egy hőskártyát, helyette ELLOPHATOD azt a hőskártyát!"
-        },
-        {
-            "id": 19,
-            "type": "monster",
-            "name": "Savköpő Varangy",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 3
-            },
-            "maxForPenalty": 6,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward":7,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát!",
-            "description": "Minden alkalommal, amikor dobsz a dobókockákkal, adj +1-et az összértékhez!"
-        },
-        {
-            "id": 20,
-            "type": "monster",
-            "name": "Megatakony",
-            "img": "",
-            "requirement":{
-                "class": "none",
-                "otherHeroAmount": 4
-            },
-            "maxForPenalty": 7,
-            "penalty": "ÁLDOZD FEL egy hőskártyád!",
-            "minForReward":8,
-            "reward": "PUSZTÍTSD EL ezt a szörnykártyát és HÚZZ 2 kártyát a főpakliból!",
-            "description": "Minden körödben eggyel több akciópontot költhetsz el."
-        },
+    "heroes":[
         {
             "id": 21,
             "type": "hero",
             "name": "Mohó Pofa",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 8,
             "description": "Az összes többi játékos adja neked az egyik kézben tartott kártyáját."
         },
@@ -272,7 +14,7 @@
             "type": "hero",
             "name": "Álom Szuszék",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 2,
             "description": "Ne tegyél semmit!"
         },
@@ -281,7 +23,7 @@
             "type": "hero",
             "name": "Agyafúrt Kereskedő",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 9,
             "description": "Cseréld ki egy másik játékossal a kézben tartott kártyáitokat!"
         },
@@ -290,7 +32,7 @@
             "type": "hero",
             "name": "Meló Dia",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 7,
             "description": "HÚZZ egy kártyát a főpakliból! Ha ez egy hőskártya, azonnal kijátszhatod azt."
         },
@@ -299,7 +41,7 @@
             "type": "hero",
             "name": "Ittas Dudás",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 6,
             "description": "Válassz egy játékost! LOPJ EL egy hőskártyát ennek a játékosnak a csapatából, és helyezd Ittas Dudást a játékos csapatába!"
         },
@@ -308,7 +50,7 @@
             "type": "hero",
             "name": "Földi Mogyoró",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 7,
             "description": "HÚZZ 2 kártyát a főpakliból!"
         },
@@ -317,7 +59,7 @@
             "type": "hero",
             "name": "Máz Lili",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 7,
             "description": "Húzz egy kártyát egy másik játékos kézben tartott kártyái közül! Ha hőskártyát húzol, azonnal kijátszhatod azt."
         },
@@ -326,7 +68,7 @@
             "type": "hero",
             "name": "Bolyhos Pofa",
             "img": "",
-            "class": "bard",
+            "heroClass": "bard",
             "minRoll": 8,
             "description": "HÚZZ egy kártyát a főpakliból, és azonnal játszd ki egy kézben tartott hőskártyádat!"
         },
@@ -335,7 +77,7 @@
             "type": "hero",
             "name": "Teli Találat",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 7,
             "description": "Nézd meg a főpakli felső 3 kártyáját! Vedd kézbe az egyiket, a másik kettőt pedig helyezd vissza tetszőleges sorrendben a főpakli tetejére!"
         },
@@ -344,7 +86,7 @@
             "type": "hero",
             "name": "Vörös Hood",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 10,
             "description": "Húzz annyi kártyát a főpakliból, hogy 7 kártya legyen a kezedben!"
         },
@@ -353,7 +95,7 @@
             "type": "hero",
             "name": "Gyors Tüzelő",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 8,
             "description": "HÚZZ 2 kártyát a főpakliból! Ha ezek között van eszközkártya, azonnal kijátszhatod az egyiket."
         },
@@ -362,7 +104,7 @@
             "type": "hero",
             "name": "Pusztító Lövés",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 8,
             "description": "HÚZZ 3 kártyát a főpakliból, és DOBJ EL egy kártyát!"
         },
@@ -371,7 +113,7 @@
             "type": "hero",
             "name": "Sötét Szürke",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 9,
             "description": "SEMMISÍTS MEG egy szörnykártyát, és HÚZZ egy kártyát a főpakliból!"
         },
@@ -380,7 +122,7 @@
             "type": "hero",
             "name": "Kötél Idegzet",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 6,
             "description": "Azonnal játszd ki egy kézben tartott eszközkártyádat, és HÚZZ egy kártyát a főpakliból!"
         },
@@ -389,7 +131,7 @@
             "type": "hero",
             "name": "Távolba Látó",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 5,
             "description": "Válassz a dobópakliból egy eszközkártyát, és vedd kezedbe azt!"
         },
@@ -398,7 +140,7 @@
             "type": "hero",
             "name": "Róka Szem",
             "img": "",
-            "class": "ranger",
+            "heroClass": "ranger",
             "minRoll": 5,
             "description": "Nézd meg egy másik játékos kézben tartott kártyáit!"
         },
@@ -407,7 +149,7 @@
             "type": "hero",
             "name": "Besur Ranó",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 6,
             "description": "Húzz 2 kártyát egy másik játékos kézben tartott kártyái közül, majd ezek egyikét DOBD el!"
         },
@@ -416,7 +158,7 @@
             "type": "hero",
             "name": "Selymes Cicamica",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 7,
             "description": "Húzz minden olyan játékos kezében tartott kártyái közül egyet-egyet, akinek van tolvaj a csapatában."
         },
@@ -425,7 +167,7 @@
             "type": "hero",
             "name": "Marrrtalóc Puma",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 6,
             "description": "Húzz 2 kártyát egy másik játékos kézben tartott kártyái közül, ez a játékos pedig HÚZHAT egy kártyát a főpakliból."
         },
@@ -434,7 +176,7 @@
             "type": "hero",
             "name": "Dobó Cica",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 9,
             "description": "SEMMISÍTS MEG egy hőskártyát! Ha ez a hőskártya eszközkártyával van felszerelve, ahelyett, hogy a dobópakliba helyeznéd az eszközkártyát, vedd kezedbe azt!"
         },
@@ -443,7 +185,7 @@
             "type": "hero",
             "name": "Ravasz Csippentés",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 6,
             "description": "Húzz egy kártyát egy másik játékos kézben tartott kártyái közül! Ha ez egy eszközkártya, azonnal kijátszhatod."
         },
@@ -452,7 +194,7 @@
             "type": "hero",
             "name": "Miauzio Mauditore",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 10,
             "description": "Válassz egy játékost! LOPJ EL egy hőskártyát ennek a játékosnak a csapatából, húzz egy kártyát a kézben tartott kártyái közül!"
         },
@@ -461,7 +203,7 @@
             "type": "hero",
             "name": "Csendes Árnyék",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 8,
             "description": "Nézd meg egy másik játékos kézben tartott kártyáit! Válassz egy kártyát ezek közül, és vedd kezedbe azt!"
         },
@@ -470,7 +212,7 @@
             "type": "hero",
             "name": "El Rabló",
             "img": "",
-            "class": "thief",
+            "heroClass": "thief",
             "minRoll": 9,
             "description": "LOPJ EL egy hőskártyát!"
         },
@@ -479,7 +221,7 @@
             "type": "hero",
             "name": "Bolyhos Veszedelem",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 10,
             "description": "SEMMISÍTS MEG 2 hőskártyát!"
         },
@@ -488,7 +230,7 @@
             "type": "hero",
             "name": "Nyuszi Boszi",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 5,
             "description": "Válassz a dobópakliból egy varázslatkártyát, és vedd kezedbe azt!"
         },
@@ -497,7 +239,7 @@
             "type": "hero",
             "name": "Kígyó Bűvölő",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 10,
             "description": "LOPJ EL egy hőskártyát, és dobj a dobókockákkal, hogy azonnal használd a képességét!"
         },
@@ -506,7 +248,7 @@
             "type": "hero",
             "name": "Ugri Füles",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 7,
             "description": "Válassz egy játékost! A választott játékosnak FEL KELL ÁLDOZNIA egy hőskártyát."
         },
@@ -515,7 +257,7 @@
             "type": "hero",
             "name": "Hó Golyó",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 6,
             "description": "HÚZZ egy kártyát a főpakliból! Ha ez egy varázslatkártya, azonnal kijátszhatod azt, és HÚZZ egy második kártyát is!"
         },
@@ -524,7 +266,7 @@
             "type": "hero",
             "name": "Csiri Búúú",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 10,
             "description": "Az összes többi játékos ÁLDOZZON FEL egy hőskártyát!"
         },
@@ -533,7 +275,7 @@
             "type": "hero",
             "name": "Pofa Szakáll",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 11,
             "description": "LOPJ EL egy hőskártyát, és SEMMISÍTS MEG egy hőskártyát!"
         },
@@ -542,7 +284,7 @@
             "type": "hero",
             "name": "Gomb Szem",
             "img": "",
-            "class": "wizard",
+            "heroClass": "wizard",
             "minRoll": 6,
             "description": "Húzz egy kártyát egy másik játékos kézben tartott kártyái közül! Ha varázslatkártyát húzol, azonnal kijátszhatod azt!"
         },
@@ -551,7 +293,7 @@
             "type": "hero",
             "name": "Fajsza Medve",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 8,
             "description": "SEMMISÍTS MEG egy hőskártyát!"
         },
@@ -560,7 +302,7 @@
             "type": "hero",
             "name": "Panda Csaku",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 8,
             "description": "HÚZZ 2 kártyát a főpakliból! Ha ezek közül legalább egy próbatételkártya, megmutathatod azt, majd SEMMISÍTS MEG egy hőskártyát!"
         },
@@ -569,7 +311,7 @@
             "type": "hero",
             "name": "Dühös Ököl",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 5,
             "description": "Húzz egy kártyát egy másik játékos kézben tartott kártyái közül! Ha próbatételkártyát húzol, húzz még egy kártyát tőle!"
         },
@@ -578,7 +320,7 @@
             "type": "hero",
             "name": "Medvetes",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 10,
             "description": "DOBJ EL legfeljebb 3 kártyát! Minden eldobott kártyáért SEMMISÍTS MEG egy hőskártyát!"
         },
@@ -587,7 +329,7 @@
             "type": "hero",
             "name": "Kemény Maci",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 4,
             "description": "Az összes többi játékos, akinek van harcos a csapatában, DOBJON EL egy kártyát!"
         },
@@ -596,7 +338,7 @@
             "type": "hero",
             "name": "Szőrős Bölcs",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 7,
             "description": "Az összes többi játékos DOBJON EL egy kártyát! Válassz az így eldobott kártyák közül egyet, és vedd a kezedbe azt!"
         },
@@ -605,7 +347,7 @@
             "type": "hero",
             "name": "Páncélos Medve",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 5,
             "description": "Válassz egy játékost! A választott játékos DOBJON EL 2 kártyát!"
         },
@@ -614,7 +356,7 @@
             "type": "hero",
             "name": "Medve Karom",
             "img": "",
-            "class": "fighter",
+            "heroClass": "fighter",
             "minRoll": 7,
             "description": "Húzz egy kártyát egy másik játékos kézben tartott kártyái közül! Ha próbatételkártyát húzol, húzz még egy kártyát tőle!"
         },
@@ -623,7 +365,7 @@
             "type": "hero",
             "name": "Sugárzó Szarv",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 6,
             "description": "Válassz a dobópakliból egy módosítókártyát, és vedd kezedbe azt!"
         },
@@ -632,7 +374,7 @@
             "type": "hero",
             "name": "Acél Akarat",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 8,
             "description": "A köröd végéig nem tehetők próbára az általad kijátszott kártyák."
         },
@@ -641,7 +383,7 @@
             "type": "hero",
             "name": "Útmutató Fény",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 7,
             "description": "Válassz a dobópakliból egy hőskártyát, és vedd kezedbe azt!"
         },
@@ -650,7 +392,7 @@
             "type": "hero",
             "name": "Védő Pajzs",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 6,
             "description": "A köröd végéig minden kockadobásod összértékéhez adj +3-at!"
         },
@@ -659,7 +401,7 @@
             "type": "hero",
             "name": "Dicső Penge",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 8,
             "description": "A következő körödig a csapatodban lévő hőskártyákat nem lehet megsemmisíteni."
         },
@@ -668,7 +410,7 @@
             "type": "hero",
             "name": "Élénk Fény",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 9,
             "description": "A körös végéig minden kockadobásod összértékéhez adj +5-öt!"
         },
@@ -677,7 +419,7 @@
             "type": "hero",
             "name": "Szent Átoktörő",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 5,
             "description": "Vegyél a kezedbe egy elátkozott eszközt, amivel a csapatod egy hőskártyája fel van szerelve!"
         },
@@ -686,9 +428,9 @@
             "type": "hero",
             "name": "Nyugtató Hang",
             "img": "",
-            "class": "guardian",
+            "heroClass": "guardian",
             "minRoll": 9,
             "description": "A következő körödig a csapatodban lévő hőskártyákat nem lehet ellopni."
-        },
+        }
     ]
 }
