@@ -8,5 +8,6 @@ namespace Components.Enums
         wizard,
         fighter,
         guardian,
+        none
     }
 }
