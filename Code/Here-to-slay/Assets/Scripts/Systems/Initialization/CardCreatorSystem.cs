@@ -30,8 +30,8 @@ namespace Systems.Initialization
 
         }
         protected override void OnUpdate() {
-            //TODO: check if this way of making sure OnUpdate runs only once hurts performance
-            Debug.Log("HeroCardCreatorSystem.OnUpdate");
+            //TODO: check if this way of making sure OnUpdate runs "only once" hurts performance
+            Debug.Log("CardCreatorSystem.OnUpdate");
             if (!_isInitialized)
             {
                 // Create cards
@@ -39,21 +39,26 @@ namespace Systems.Initialization
 
                 _isInitialized = true;
             }
+            else
+            {
+                Debug.Log("disabling CardCreatorSystem");
+                World.GetExistingSystemManaged<CardCreatorSystem>().Enabled = false;
+            }
             
         }
         #region Private Methods
         private void ReadHeroesFromJSON()
         {
             _heroesFromJSON = JsonUtility.FromJson<Heroes>(Resources.Load<TextAsset>(HEROES_JSON_PATH).text);
-            Debug.Log("HeroCardCreatorSystem.ReadHeroesFromJSON first card: " + _heroesFromJSON.heroes[0].name);
+            Debug.Log("CardCreatorSystem.ReadHeroesFromJSON first card: " + _heroesFromJSON.heroes[0].name);
         }
         //Creates hero card entities using data from HeroCardCreator and JSON
         private void CreateHeroCards() {
             //for now, assume there is only one hero card creator
-            Debug.Log("HeroCardCreatorSystem.CreateHeroCards");
+            Debug.Log("CardCreatorSystem.CreateHeroCards");
             foreach (RefRO<HeroCardCreator> heroCardCreator in SystemAPI.Query<RefRW<HeroCardCreator>>())
             {
-                Debug.Log("HeroCardCreatorSystem.CreateHeroCard: heroCardCreator component found");
+                Debug.Log("CardCreatorSystem.CreateHeroCard: heroCardCreator component found");
                 //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
                 EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
                 foreach (HeroJSON heroData in _heroesFromJSON.heroes)
@@ -69,7 +74,7 @@ namespace Systems.Initialization
             
             Entity newHeroCardEntity = ecb.CreateEntity();
             //first hero card only
-            Debug.Log("HeroCardCreatorSystem.CreateHeroCard: " + heroData.name);
+            Debug.Log("CardCreatorSystem.CreateHeroCard: " + heroData.name);
             int mR = heroData.minRoll;
             HeroClass hC = Enum.TryParse(typeof(HeroClass), heroData.heroClass, out object heroClass) ? (HeroClass)heroClass : HeroClass.none;
             ecb.AddComponent<HeroCard>(newHeroCardEntity);
@@ -81,7 +86,7 @@ namespace Systems.Initialization
                 IsActivated = false,
 
             });
-            Debug.Log($"HeroCardCreatorSystem.CreateHeroCards: MinRoll: {mR}, HeroClass: {hC}");
+            Debug.Log($"CardCreatorSystem.CreateHeroCards: MinRoll: {mR}, HeroClass: {hC}");
             //TODO: check if every string data is transferred
             //if not, then increase byte size of strings in BaseCard
             int id = heroData.id;
@@ -95,7 +100,7 @@ namespace Systems.Initialization
                 Description = description,
                 IsViewable = true,
             });
-            Debug.Log($"HeroCardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
+            Debug.Log($"CardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
 
         }
         #endregion
