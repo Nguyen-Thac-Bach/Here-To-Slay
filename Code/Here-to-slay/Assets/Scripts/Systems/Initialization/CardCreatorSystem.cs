@@ -41,6 +41,19 @@ namespace Systems.Initialization
             }
             else
             {
+                //check if hero cards are created
+                /*
+                int heroCardCount = 0;
+                Entities
+                    .ForEach((in BaseCard baseCard, in HeroCard heroCard) =>
+                {
+                    Debug.Log("CardCreatorSystem.OnUpdate: hero card found: ");
+                    Debug.Log($"baseCard.Name: {baseCard.Name}, heroCard.MinRoll: {heroCard.MinRoll}");
+                    heroCardCount++;
+                }).WithoutBurst().Run();
+                Debug.Log("CardCreatorSystem.OnUpdate: heroCardCount: " + heroCardCount);
+                */
+                //disable this system
                 Debug.Log("disabling CardCreatorSystem");
                 World.GetExistingSystemManaged<CardCreatorSystem>().Enabled = false;
             }
@@ -56,18 +69,19 @@ namespace Systems.Initialization
         private void CreateHeroCards() {
             //for now, assume there is only one hero card creator
             Debug.Log("CardCreatorSystem.CreateHeroCards");
+            //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
+            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             foreach (RefRO<HeroCardCreator> heroCardCreator in SystemAPI.Query<RefRW<HeroCardCreator>>())
             {
                 Debug.Log("CardCreatorSystem.CreateHeroCard: heroCardCreator component found");
-                //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
-                EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
                 foreach (HeroJSON heroData in _heroesFromJSON.heroes)
                 {
                     CreateHeroCardFrom(ecb, heroData);
                 }
-                
-                
             }
+            //actually create entities
+            ecb.Playback(EntityManager);
+            ecb.Dispose();
         }
         private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData)
         {
