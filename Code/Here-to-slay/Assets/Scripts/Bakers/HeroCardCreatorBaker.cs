@@ -9,6 +9,7 @@ namespace Bakers
         //Create an empty entity, then add the HeroCardCreator component to it
         public override void Bake(HeroCardCreatorAuthoring authoring)
         {
+            Debug.Log("HeroCardCreatorBaker.Bake");
             var entity = GetEntity(TransformUsageFlags.None);
             AddComponent(entity, new HeroCardCreator()
             {

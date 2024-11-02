@@ -4,6 +4,7 @@ using Util;
 using Components;
 using System;
 using Components.Enums;
+using Unity.Collections;
 namespace Systems.Initialization
 {
     //We use SystemBase, which allows features like Entities.ForEach
@@ -15,6 +16,7 @@ namespace Systems.Initialization
 
         #region Fields
         private Heroes _heroesFromJSON;
+        private bool _isInitialized;
         #endregion
 
         protected override void OnCreate()
@@ -22,52 +24,79 @@ namespace Systems.Initialization
             Debug.Log("HeroCardCreatorSystem.OnCreate");
             // Read JSON files
             ReadHeroesFromJSON();
-            // Create cards
-            CreateHeroCards();
+            _isInitialized = false;
+            
             
 
         }
-        protected override void OnUpdate() { }
+        protected override void OnUpdate() {
+            //TODO: check if this way of making sure OnUpdate runs only once hurts performance
+            Debug.Log("HeroCardCreatorSystem.OnUpdate");
+            if (!_isInitialized)
+            {
+                // Create cards
+                CreateHeroCards();
+
+                _isInitialized = true;
+            }
+            
+        }
         #region Private Methods
         private void ReadHeroesFromJSON()
         {
             _heroesFromJSON = JsonUtility.FromJson<Heroes>(Resources.Load<TextAsset>(HEROES_JSON_PATH).text);
+            Debug.Log("HeroCardCreatorSystem.ReadHeroesFromJSON first card: " + _heroesFromJSON.heroes[0].name);
         }
         //Creates hero card entities using data from HeroCardCreator and JSON
         private void CreateHeroCards() {
             //for now, assume there is only one hero card creator
+            Debug.Log("HeroCardCreatorSystem.CreateHeroCards");
             foreach (RefRO<HeroCardCreator> heroCardCreator in SystemAPI.Query<RefRW<HeroCardCreator>>())
             {
-                Entity newHeroCardEntity = EntityManager.CreateEntity();
-                //first hero card only
-                Debug.Log("HeroCardCreatorSystem.CreateHeroCards: first card: " + _heroesFromJSON.heroes[0].name);
-                int mR = _heroesFromJSON.heroes[0].minRoll;
-                HeroClass hC = Enum.TryParse(typeof(HeroClass), _heroesFromJSON.heroes[0].heroClass, out object heroClass) ? (HeroClass)heroClass : HeroClass.none;
-                EntityManager.AddComponentData(newHeroCardEntity, new HeroCard
+                Debug.Log("HeroCardCreatorSystem.CreateHeroCard: heroCardCreator component found");
+                //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
+                EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
+                foreach (HeroJSON heroData in _heroesFromJSON.heroes)
                 {
-                    
-                    MinRoll = mR,
-                    HeroClass = hC,
-                    IsActivated = false,
-                    
-                });
-                Debug.Log($"HeroCardCreatorSystem.CreateHeroCards: MinRoll: {mR}, HeroClass: {hC}");
-                //TODO: check if every string data is transferred
-                //if not, then increase byte size of strings in BaseCard
-                int id = _heroesFromJSON.heroes[0].id;
-                string name = _heroesFromJSON.heroes[0].name;
-                string description = _heroesFromJSON.heroes[0].description;
-
-                EntityManager.AddComponentData(newHeroCardEntity, new BaseCard
-                {
-                    CardId = id,
-                    Name = name,
-                    Description = description,
-                    IsViewable = true,
-                });
-                Debug.Log($"HeroCardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
-
+                    CreateHeroCardFrom(ecb, heroData);
+                }
+                
+                
             }
+        }
+        private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData)
+        {
+            
+            Entity newHeroCardEntity = ecb.CreateEntity();
+            //first hero card only
+            Debug.Log("HeroCardCreatorSystem.CreateHeroCard: " + heroData.name);
+            int mR = heroData.minRoll;
+            HeroClass hC = Enum.TryParse(typeof(HeroClass), heroData.heroClass, out object heroClass) ? (HeroClass)heroClass : HeroClass.none;
+            ecb.AddComponent<HeroCard>(newHeroCardEntity);
+            ecb.SetComponent<HeroCard>(newHeroCardEntity, new HeroCard
+            {
+
+                MinRoll = mR,
+                HeroClass = hC,
+                IsActivated = false,
+
+            });
+            Debug.Log($"HeroCardCreatorSystem.CreateHeroCards: MinRoll: {mR}, HeroClass: {hC}");
+            //TODO: check if every string data is transferred
+            //if not, then increase byte size of strings in BaseCard
+            int id = heroData.id;
+            string name = heroData.name;
+            string description = heroData.description;
+            ecb.AddComponent<BaseCard>(newHeroCardEntity);
+            ecb.SetComponent<BaseCard>(newHeroCardEntity, new BaseCard
+            {
+                CardId = id,
+                Name = name,
+                Description = description,
+                IsViewable = true,
+            });
+            Debug.Log($"HeroCardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
+
         }
         #endregion
     }
