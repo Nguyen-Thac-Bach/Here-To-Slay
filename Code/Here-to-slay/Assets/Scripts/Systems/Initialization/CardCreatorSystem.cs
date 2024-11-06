@@ -8,6 +8,7 @@ using Unity.Collections;
 namespace Systems.Initialization
 {
     //We use SystemBase, which allows features like Entities.ForEach
+    //[UpdateInGroup(typeof(SimulationSystemGroup), OrderLast = true)]
     public partial class CardCreatorSystem : SystemBase
     {
         #region Constants
@@ -21,15 +22,17 @@ namespace Systems.Initialization
 
         protected override void OnCreate()
         {
+            
             Debug.Log("HeroCardCreatorSystem.OnCreate");
             // Read JSON files
             ReadHeroesFromJSON();
             _isInitialized = false;
-            
-            
+
+
 
         }
-        protected override void OnUpdate() {
+        protected override void OnUpdate()
+        {
             //TODO: check if this way of making sure OnUpdate runs "only once" hurts performance
             Debug.Log("CardCreatorSystem.OnUpdate");
             if (!_isInitialized)
@@ -57,7 +60,7 @@ namespace Systems.Initialization
                 Debug.Log("disabling CardCreatorSystem");
                 World.GetExistingSystemManaged<CardCreatorSystem>().Enabled = false;
             }
-            
+
         }
         #region Private Methods
         private void ReadHeroesFromJSON()
@@ -66,7 +69,8 @@ namespace Systems.Initialization
             Debug.Log("CardCreatorSystem.ReadHeroesFromJSON first card: " + _heroesFromJSON.heroes[0].name);
         }
         //Creates hero card entities using data from HeroCardCreator and JSON
-        private void CreateHeroCards() {
+        private void CreateHeroCards()
+        {
             //for now, assume there is only one hero card creator
             Debug.Log("CardCreatorSystem.CreateHeroCards");
             //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
@@ -76,18 +80,18 @@ namespace Systems.Initialization
                 Debug.Log("CardCreatorSystem.CreateHeroCard: heroCardCreator component found");
                 foreach (HeroJSON heroData in _heroesFromJSON.heroes)
                 {
-                    CreateHeroCardFrom(ecb, heroData);
+                    CreateHeroCardFrom(ecb, heroData, heroCardCreator.ValueRO.HeroCardPrefab);
                 }
             }
             //actually create entities
             ecb.Playback(EntityManager);
             ecb.Dispose();
         }
-        private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData)
+        private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData, Entity heroCardPrefab)
         {
-            
-            Entity newHeroCardEntity = ecb.CreateEntity();
-            //first hero card only
+
+            Entity newHeroCardEntity = ecb.Instantiate(heroCardPrefab);
+
             Debug.Log("CardCreatorSystem.CreateHeroCard: " + heroData.name);
             int mR = heroData.minRoll;
             HeroClass hC = Enum.TryParse(typeof(HeroClass), heroData.heroClass, out object heroClass) ? (HeroClass)heroClass : HeroClass.none;
@@ -115,7 +119,6 @@ namespace Systems.Initialization
                 IsViewable = true,
             });
             Debug.Log($"CardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
-
         }
         #endregion
     }

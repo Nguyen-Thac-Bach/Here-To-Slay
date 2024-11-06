@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97eb5f5f791a8504c86612010b95e415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroCardPrefab: {fileID: 6168589897143812229, guid: fb9a6f2436f859b4f82a988f3a3c335a, type: 3}
+  HeroCardPrefab: {fileID: 5837876003713497685, guid: fb9a6f2436f859b4f82a988f3a3c335a, type: 3}
 --- !u!4 &505172486
 Transform:
   m_ObjectHideFlags: 0
