@@ -8,10 +8,10 @@ hero:48
 -ranger:8
 -thief:8
 -wizard:8
-items:
--total duplicates
-modifiers:
--total duplicates:
-spells:
--total duplicates:
-challenges
+items:15
+
+modifiers:25
+
+spells:13
+
+challenges:14
