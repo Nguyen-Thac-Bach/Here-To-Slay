@@ -5,6 +5,8 @@ using Components;
 using System;
 using Components.Enums;
 using Unity.Collections;
+//commented out for now
+/*
 namespace Systems.Initialization
 {
     //We use SystemBase, which allows features like Entities.ForEach
@@ -45,7 +47,7 @@ namespace Systems.Initialization
             else
             {
                 //check if hero cards are created
-                /*
+                
                 int heroCardCount = 0;
                 Entities
                     .ForEach((in BaseCard baseCard, in HeroCard heroCard) =>
@@ -55,7 +57,7 @@ namespace Systems.Initialization
                     heroCardCount++;
                 }).WithoutBurst().Run();
                 Debug.Log("CardCreatorSystem.OnUpdate: heroCardCount: " + heroCardCount);
-                */
+                
                 //disable this system
                 Debug.Log("disabling CardCreatorSystem");
                 World.GetExistingSystemManaged<CardCreatorSystem>().Enabled = false;
@@ -123,3 +125,4 @@ namespace Systems.Initialization
         #endregion
     }
 }
+*/
