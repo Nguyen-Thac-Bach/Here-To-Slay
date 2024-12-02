@@ -38,7 +38,7 @@ namespace Systems.Initialization
             Debug.Log("CardCreatorSystem.OnUpdate");
 
             //Hero cards
-            CreateHeroesFromJSON();
+            CreateHeroesFromJSON(ref state);
 
             //check if cards are created
             int heroCardCount = 0;
