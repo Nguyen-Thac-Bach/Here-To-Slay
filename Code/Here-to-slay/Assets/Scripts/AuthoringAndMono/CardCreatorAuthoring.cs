@@ -25,7 +25,7 @@ namespace AuthoringAndMono
         public override void Bake(CardCreatorAuthoring authoring)
         {
             Entity cardCreatorEntity = GetEntity(TransformUsageFlags.None); //no need for transform
-            AddComponent(cardCreatorEntity, new HeroCardCreator
+            AddComponent(cardCreatorEntity, new HeroCardCreatorProperties
             {
                 HeroCardPrefab = GetEntity(authoring.HeroCardPrefab, TransformUsageFlags.Dynamic),
                 Heroes_JSON_PATH = new FixedString128Bytes(authoring.Heroes_JSON_PATH)

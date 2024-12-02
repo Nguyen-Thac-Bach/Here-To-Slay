@@ -6,97 +6,81 @@ using System;
 using Components.Enums;
 using Unity.Collections;
 //commented out for now
-/*
+
 namespace Systems.Initialization
 {
-    //We use SystemBase, which allows features like Entities.ForEach
+    //We use Isystem, which is faster than SystemBase
     //[UpdateInGroup(typeof(SimulationSystemGroup), OrderLast = true)]
-    public partial class CardCreatorSystem : SystemBase
+    public partial struct CardCreatorSystem : ISystem
     {
         #region Constants
-        private const string HEROES_JSON_PATH = "JSON/heroes";
         #endregion
 
         #region Fields
-        private Heroes _heroesFromJSON;
-        private bool _isInitialized;
         #endregion
 
-        protected override void OnCreate()
+        public void OnCreate(ref SystemState state)
         {
             
             Debug.Log("HeroCardCreatorSystem.OnCreate");
-            // Read JSON files
-            ReadHeroesFromJSON();
-            _isInitialized = false;
-
-
-
+            //wait for components to exist
+            state.RequireForUpdate<HeroCardCreatorProperties>();
         }
-        protected override void OnUpdate()
+
+        public void OnDestroy(ref SystemState state)
         {
+        }
+        public void OnUpdate(ref SystemState state)
+        {
+            //we only want to run this system once, so we disable it for future updates
+            state.Enabled = false;
             //TODO: check if this way of making sure OnUpdate runs "only once" hurts performance
             Debug.Log("CardCreatorSystem.OnUpdate");
-            if (!_isInitialized)
-            {
-                // Create cards
-                CreateHeroCards();
 
-                _isInitialized = true;
-            }
-            else
-            {
-                //check if hero cards are created
+            //Hero cards
+            CreateHeroesFromJSON();
+
+            //check if cards are created
+            int heroCardCount = 0;
+            Debug.Log("CardCreatorSystem.OnUpdate: heroCardCount: " + heroCardCount);
                 
-                int heroCardCount = 0;
-                Entities
-                    .ForEach((in BaseCard baseCard, in HeroCard heroCard) =>
-                {
-                    Debug.Log("CardCreatorSystem.OnUpdate: hero card found: ");
-                    Debug.Log($"baseCard.Name: {baseCard.Name}, heroCard.MinRoll: {heroCard.MinRoll}");
-                    heroCardCount++;
-                }).WithoutBurst().Run();
-                Debug.Log("CardCreatorSystem.OnUpdate: heroCardCount: " + heroCardCount);
-                
-                //disable this system
-                Debug.Log("disabling CardCreatorSystem");
-                World.GetExistingSystemManaged<CardCreatorSystem>().Enabled = false;
-            }
+
+            
 
         }
         #region Private Methods
-        private void ReadHeroesFromJSON()
+        private void CreateHeroesFromJSON(ref SystemState state)
         {
-            _heroesFromJSON = JsonUtility.FromJson<Heroes>(Resources.Load<TextAsset>(HEROES_JSON_PATH).text);
-            Debug.Log("CardCreatorSystem.ReadHeroesFromJSON first card: " + _heroesFromJSON.heroes[0].name);
-        }
-        //Creates hero card entities using data from HeroCardCreator and JSON
-        private void CreateHeroCards()
-        {
+            //read json file
+            Entity heroCardCreatorEntity = SystemAPI.GetSingletonEntity<HeroCardCreatorProperties>();
+            CardCreatorAspect cardCreatorAspect = SystemAPI.GetAspect<CardCreatorAspect>(heroCardCreatorEntity);
+            string Heroes_JSON_PATH = cardCreatorAspect.Heroes_JSON_PATH;
+            Heroes heroesFromJSON = JsonUtility.FromJson<Heroes>(Resources.Load<TextAsset>(Heroes_JSON_PATH).text);
+            Debug.Log("CardCreatorSystem.CreateHeroesFromJSON: loaded data from " + Heroes_JSON_PATH);
+            //create hero card entities using data from HeroCardCreator and JSON
+
             //for now, assume there is only one hero card creator
             Debug.Log("CardCreatorSystem.CreateHeroCards");
             //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
-            foreach (RefRO<HeroCardCreator> heroCardCreator in SystemAPI.Query<RefRW<HeroCardCreator>>())
+            foreach (HeroJSON heroData in heroesFromJSON.heroes)
             {
-                Debug.Log("CardCreatorSystem.CreateHeroCard: heroCardCreator component found");
-                foreach (HeroJSON heroData in _heroesFromJSON.heroes)
-                {
-                    CreateHeroCardFrom(ecb, heroData, heroCardCreator.ValueRO.HeroCardPrefab);
-                }
+                CreateHeroCardFrom(ecb, heroData, cardCreatorAspect);
             }
+
             //actually create entities
-            ecb.Playback(EntityManager);
+            ecb.Playback(state.EntityManager);
             ecb.Dispose();
         }
-        private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData, Entity heroCardPrefab)
+        private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData, CardCreatorAspect cardCreatorAspect)
         {
-
-            Entity newHeroCardEntity = ecb.Instantiate(heroCardPrefab);
-
             Debug.Log("CardCreatorSystem.CreateHeroCard: " + heroData.name);
+            Entity newHeroCardEntity = ecb.Instantiate(cardCreatorAspect.HeroCardPrefab);
             int mR = heroData.minRoll;
             HeroClass hC = Enum.TryParse(typeof(HeroClass), heroData.heroClass, out object heroClass) ? (HeroClass)heroClass : HeroClass.none;
+            //TODO: how to access newHeroCardEntity's components?
+            //the prefab will need to contain a script first that sets display texts. I need to access the script to set its values for card display
+            /*
             ecb.AddComponent<HeroCard>(newHeroCardEntity);
             ecb.SetComponent<HeroCard>(newHeroCardEntity, new HeroCard
             {
@@ -121,8 +105,9 @@ namespace Systems.Initialization
                 IsViewable = true,
             });
             Debug.Log($"CardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
+            */
         }
         #endregion
     }
 }
-*/
+

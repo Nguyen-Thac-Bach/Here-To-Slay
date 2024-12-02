@@ -4,7 +4,10 @@ using Unity.Collections;
 
 namespace Components
 {
-    public struct HeroCardCreator : IComponentData
+    /// <summary>
+    /// Component that holds the prefab for the hero card, and the path to the JSON file that contains the hero data.
+    /// </summary>
+    public struct HeroCardCreatorProperties : IComponentData
     {
         public Entity HeroCardPrefab;
         public FixedString128Bytes Heroes_JSON_PATH;
