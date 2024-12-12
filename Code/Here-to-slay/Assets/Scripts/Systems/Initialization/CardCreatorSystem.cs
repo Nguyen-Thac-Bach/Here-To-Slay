@@ -10,9 +10,9 @@ using System.Collections.Generic;
 
 namespace Systems.Initialization
 {
-    //We use Isystem, which is faster than SystemBase
+    //SystemBase is needed, because UI can only reference systems that inherit from SystemBase
     //[UpdateInGroup(typeof(SimulationSystemGroup), OrderLast = true)]
-    public partial struct CardCreatorSystem : ISystem
+    public partial class CardCreatorSystem : SystemBase
     {
         #region Constants
         #endregion
@@ -21,26 +21,26 @@ namespace Systems.Initialization
         public Action<List<string>> OnHeroCardCreated;
         #endregion
 
-        public void OnCreate(ref SystemState state)
+        protected override void OnCreate()
         {
             
             Debug.Log("HeroCardCreatorSystem.OnCreate");
             //wait for components to exist
-            state.RequireForUpdate<HeroCardCreatorProperties>();
+            RequireForUpdate<HeroCardCreatorProperties>();
         }
 
-        public void OnDestroy(ref SystemState state)
+        protected override void OnDestroy()
         {
         }
-        public void OnUpdate(ref SystemState state)
+        protected override void OnUpdate()
         {
             //we only want to run this system once, so we disable it for future updates
-            state.Enabled = false;
+            Enabled = false;
             //TODO: check if this way of making sure OnUpdate runs "only once" hurts performance
             Debug.Log("CardCreatorSystem.OnUpdate");
 
             //Hero cards
-            CreateHeroesFromJSON(ref state);
+            CreateHeroesFromJSON();
 
             //check if cards are created
             int heroCardCount = 0;
@@ -60,7 +60,7 @@ namespace Systems.Initialization
         {
             OnHeroCardCreated?.Invoke(heroCardData);
         }
-        private void CreateHeroesFromJSON(ref SystemState state)
+        private void CreateHeroesFromJSON()
         {
             //read json file
             Entity heroCardCreatorEntity = SystemAPI.GetSingletonEntity<HeroCardCreatorProperties>();
@@ -80,7 +80,7 @@ namespace Systems.Initialization
             }
 
             //actually create entities
-            ecb.Playback(state.EntityManager);
+            ecb.Playback(EntityManager);
             ecb.Dispose();
         }
         private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData, CardCreatorAspect cardCreatorAspect)

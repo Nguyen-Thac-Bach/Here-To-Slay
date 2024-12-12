@@ -1,15 +1,19 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Entities;
 using UnityEngine;
+
+using Systems.Initialization;
 
 public class HeroCardUI : MonoBehaviour
 {
     //there are 2 ways to use UI with ECS:
     //1. Monobehaviour listens to events from ECS
     //2. Monobehaviour reads data from ECS
-    //we will use the second method
+    //we will use the first method
 
+    
     //Data that will be read from ECS
     //might need to change to private later
     public string HeroName;
@@ -32,7 +36,7 @@ public class HeroCardUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        IsActive = true;
+        IsActive = false;
         _border = GetBorder(transform);
         Debug.Log($"HeroCardUI: {_border.name}");
         _textComponents = GetTextComponents(_border);
@@ -53,6 +57,28 @@ public class HeroCardUI : MonoBehaviour
             IsActive = false;
         }
     }
+    private void OnEnable()
+    {
+        var cardCreatorSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CardCreatorSystem>();
+        cardCreatorSystem.OnHeroCardCreated += ReceiveHeroData;
+    }
+
+    private void OnDisable()
+    {
+        if (World.DefaultGameObjectInjectionWorld == null) return;
+        var cardCreatorSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CardCreatorSystem>();
+        cardCreatorSystem.OnHeroCardCreated -= ReceiveHeroData;
+    }
+
+    private void ReceiveHeroData(List<string> heroCardData)
+    {
+        HeroName = heroCardData[0];
+        HeroClass = heroCardData[1];
+        HeroDescription = heroCardData[2];
+        RollRequirement = heroCardData[3];
+        IsActive = true;
+    }
+
     private Transform GetBorder(Transform parent)
     {
         List<Transform> children = new List<Transform>();
