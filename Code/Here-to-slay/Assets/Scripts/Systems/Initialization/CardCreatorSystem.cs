@@ -5,6 +5,7 @@ using Components;
 using System;
 using Components.Enums;
 using Unity.Collections;
+using System.Collections.Generic;
 //commented out for now
 
 namespace Systems.Initialization
@@ -17,6 +18,7 @@ namespace Systems.Initialization
         #endregion
 
         #region Fields
+        public Action<List<string>> OnHeroCardCreated;
         #endregion
 
         public void OnCreate(ref SystemState state)
@@ -48,7 +50,16 @@ namespace Systems.Initialization
             
 
         }
+
         #region Private Methods
+        /// <summary>
+        /// invokes OnHeroCardCreated event for the UI to display the hero card
+        /// </summary>
+        /// <param name="heroCardData"></param>
+        private void HeroCardCreated(List<string> heroCardData)
+        {
+            OnHeroCardCreated?.Invoke(heroCardData);
+        }
         private void CreateHeroesFromJSON(ref SystemState state)
         {
             //read json file
