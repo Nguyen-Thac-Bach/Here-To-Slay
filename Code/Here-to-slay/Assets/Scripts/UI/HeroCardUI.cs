@@ -4,6 +4,8 @@ using TMPro;
 using Unity.Entities;
 using UnityEngine;
 
+using System;
+
 using Systems.Initialization;
 
 public class HeroCardUI : MonoBehaviour
@@ -12,7 +14,7 @@ public class HeroCardUI : MonoBehaviour
     //1. Monobehaviour listens to events from ECS
     //2. Monobehaviour reads data from ECS
     //we will use the first method
-
+    public Action<bool> OnHeroCardUIFinished;
     
     //Data that will be read from ECS
     //might need to change to private later
@@ -36,6 +38,11 @@ public class HeroCardUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //subscribe to the event
+        var cardCreatorSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystemManaged<CardCreatorSystem>();
+        cardCreatorSystem.OnHeroCardCreated += ReceiveHeroData;
+
+        //get the border and text components
         IsActive = false;
         _border = GetBorder(transform);
         Debug.Log($"HeroCardUI: {_border.name}");
@@ -54,19 +61,20 @@ public class HeroCardUI : MonoBehaviour
         if (IsActive)
         {
             SetData();
+            //answer back to CardCreatorSystem
+            OnHeroCardUIFinished?.Invoke(true);
             IsActive = false;
         }
     }
     private void OnEnable()
     {
-        var cardCreatorSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CardCreatorSystem>();
-        cardCreatorSystem.OnHeroCardCreated += ReceiveHeroData;
+        
     }
 
     private void OnDisable()
     {
         if (World.DefaultGameObjectInjectionWorld == null) return;
-        var cardCreatorSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CardCreatorSystem>();
+        var cardCreatorSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystemManaged<CardCreatorSystem>();
         cardCreatorSystem.OnHeroCardCreated -= ReceiveHeroData;
     }
 

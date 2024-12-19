@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Util;
-using Components;
+
 using System;
 using Components.Enums;
 using Unity.Collections;
 using System.Collections.Generic;
+
+using Util;
+using Components;
 //commented out for now
 
 namespace Systems.Initialization
@@ -73,6 +75,10 @@ namespace Systems.Initialization
             //for now, assume there is only one hero card creator
             Debug.Log("CardCreatorSystem.CreateHeroCards");
             //since we make structural changes while iterating through entities, we need to use EntityCommandBuffer for "thread safety"
+
+            //start by creating only 1 hero card
+            //old version
+            /*
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             foreach (HeroJSON heroData in heroesFromJSON.heroes)
             {
@@ -82,13 +88,18 @@ namespace Systems.Initialization
             //actually create entities
             ecb.Playback(EntityManager);
             ecb.Dispose();
+            */
+            //new version
+            CreateHeroCardFrom(heroesFromJSON.heroes[0], cardCreatorAspect);
         }
-        private void CreateHeroCardFrom(EntityCommandBuffer ecb, HeroJSON heroData, CardCreatorAspect cardCreatorAspect)
+        private void CreateHeroCardFrom(HeroJSON heroData, CardCreatorAspect cardCreatorAspect)
         {
-            Debug.Log("CardCreatorSystem.CreateHeroCard: " + heroData.name);
+            Debug.Log("CardCreatorSystem.CreateHeroCardFrom: starting method using " + heroData.name);
+            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             Entity newHeroCardEntity = ecb.Instantiate(cardCreatorAspect.HeroCardPrefab);
             int mR = heroData.minRoll;
             HeroClass hC = Enum.TryParse(typeof(HeroClass), heroData.heroClass, out object heroClass) ? (HeroClass)heroClass : HeroClass.none;
+            
             //TODO: how to access newHeroCardEntity's components?
             //the prefab will need to contain a script first that sets display texts. I need to access the script to set its values for card display
             /*
@@ -117,6 +128,17 @@ namespace Systems.Initialization
             });
             Debug.Log($"CardCreatorSystem.CreateHeroCards: CardId: {id}, Name: {name}, Description: {description}");
             */
+            
+
+            //Actually create hero card entity
+            ecb.Playback(EntityManager);
+            ecb.Dispose();
+            //listen for UI event to display hero card
+            //Entities.ForEach()
+            MonoBehaviour UIScript = GameObject.Find("HeroCardPrefab").GetComponent<MonoBehaviour>();
+            Debug.Log("CardCreatorSystem.CreateHeroCard: UIScript to subscribe to: " + UIScript);
+            //invoke event for UI to display hero card
+            HeroCardCreated(new List<string> { heroData.name, heroData.heroClass, heroData.description, heroData.minRoll.ToString() });
         }
         #endregion
     }
